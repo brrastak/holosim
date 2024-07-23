@@ -34,15 +34,17 @@ x, y, z = np.mgrid[-5:5:50j, -5:5:50j, 0:10:50j]
 # x1, y1 = np.mgrid[-5:5:500j, -5:5:500j]
 scalar = np.sin(np.sqrt(x**2 + y**2 + z**2))
 
+# scalar = np.sinc(x)*np.sinc(y) #/(np.abs(z)+1)
+
 # scalar = plane_v(z)
 # print(scalar)
 
 fig = mlab.figure()
-contour = mlab.contour3d(x, y, z, scalar, colormap='magma')
+contour = mlab.contour3d(x, y, z, scalar, colormap='winter')
 
 
 s = np.random.random((20, 20))
-pixels = mlab.imshow(s)
+pixels = mlab.imshow(s, colormap='winter')
 
 mlab.xlabel('X')
 mlab.ylabel('Y')
