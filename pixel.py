@@ -9,8 +9,8 @@ import numpy as np
 class PixelMatrix:
 
     # Each pixel size in micrometers
-    __PIXEL_X_SIZE = 10
-    __PIXEL_Y_SIZE = 10
+    PIXEL_X_SIZE = 10
+    PIXEL_Y_SIZE = 10
 
     def __init__(self, turned_on_ndarray):
         (self.__number_of_pixels_x, self.__number_of_pixels_y) = turned_on_ndarray.shape
@@ -22,24 +22,24 @@ class PixelMatrix:
         return self
 
     def __next__(self):
-        self.__pixel_index += 1
         if self.__pixel_index < self.__max_pixel_index:
+            self.__pixel_index += 1
             return Pixel(self.x_pos(), self.y_pos(), next(self.__is_turned_on_iter))
         raise StopIteration
     
     def x_pos(self):
-        return self.__pixel_index % self.__number_of_pixels_x * self.__PIXEL_X_SIZE
+        return self.__pixel_index % self.__number_of_pixels_x * self.PIXEL_X_SIZE
     
     def y_pos(self):
-        return self.__pixel_index // self.__number_of_pixels_x * self.__PIXEL_Y_SIZE
+        return self.__pixel_index // self.__number_of_pixels_x * self.PIXEL_Y_SIZE
     
     # The whole pixel matrix size in micrometers
 
     def x_size(self):
-        return self.__PIXEL_X_SIZE * self.__number_of_pixels_x
+        return self.PIXEL_X_SIZE * self.__number_of_pixels_x
     
     def y_size(self):
-        return self.__PIXEL_Y_SIZE * self.__number_of_pixels_y
+        return self.PIXEL_Y_SIZE * self.__number_of_pixels_y
     
     # The whole pixel matrix size in pixels
 
@@ -65,4 +65,4 @@ class Pixel:
         return self.__is_turned_on
 
     def __distance(self, x, y, z):
-        return (self.__x_pos - x)**2 + (self.__y_pos - y)**2 + z**2
+        return np.sqrt((self.__x_pos - x)**2 + (self.__y_pos - y)**2 + z**2)
