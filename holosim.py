@@ -48,8 +48,9 @@ for pixel in matrix:
 
     dist = pixel.distance(vox_x_pos, vox_y_pos, vox_z_pos_with_offset)
     light_phasor += (np.exp(1j * wave_number * dist) / dist
-        * np.sinc(wave_number * matrix.PIXEL_Y_SIZE * vox_x_pos / 2 / dist)
-        * np.sinc(wave_number * matrix.PIXEL_X_SIZE * vox_y_pos / 2 / dist))
+        * np.sinc(wave_number * matrix.PIXEL_X_SIZE * vox_x_pos / 2 / dist / np.pi)
+        * np.sinc(wave_number * matrix.PIXEL_Y_SIZE * vox_y_pos / 2 / dist / np.pi)
+        )
 
 # Power of 0.5 instead of 2 to decrease difference between high and low peaks
 # and to make low peaks visible
